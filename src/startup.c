@@ -8,12 +8,14 @@
 
 extern uint32_t _etext, _sdata, _edata, _sbss, _ebss;
 void main(void);
+void reset_handler(void);
+void default_handler(void);
 
 /*
     - These names and the order is all from: Table 97. STM32G4 Series vector table 
 */
-void reset_handler(void);
-void default_handler(void);
+
+// Cortex-M system exceptions
 void nmi_handler(void) __attribute__((weak, alias("default_handler")));
 void hard_fault_handler(void) __attribute__((weak, alias("default_handler")));
 void mem_manage_handler(void) __attribute__((weak, alias("default_handler")));
@@ -23,6 +25,8 @@ void svcall_handler(void) __attribute__((weak, alias("default_handler")));
 void debug_monitor_handler(void) __attribute__((weak, alias("default_handler")));
 void pendsv_handler(void) __attribute__((weak, alias("default_handler")));
 void systick_handler(void) __attribute__((weak, alias("default_handler")));
+
+// STM32G4 interrupt handlers
 void wwdg_handler(void) __attribute__((weak, alias("default_handler")));
 void pvd_pvm_handler(void) __attribute__((weak, alias("default_handler")));
 void rtc_tamp_css_lse_handler(void) __attribute__((weak, alias("default_handler")));
@@ -128,6 +132,7 @@ void fmac_handler(void) __attribute__((weak, alias("default_handler")));
 
 uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector"))) = {
     STACK_POINTER_INIT_ADDRESS,
+    // Cortex-M system exceptions
     (uint32_t)&reset_handler,
     (uint32_t)&nmi_handler,
     (uint32_t)&hard_fault_handler,
@@ -143,6 +148,7 @@ uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector")
     0,
     (uint32_t)&pendsv_handler,
     (uint32_t)&systick_handler,
+    // STM32F410 interrupt handlers
     (uint32_t)&wwdg_handler,
     (uint32_t)&pvd_pvm_handler,
     (uint32_t)&rtc_tamp_css_lse_handler,

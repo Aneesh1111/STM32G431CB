@@ -4,7 +4,7 @@
 #define STACK_POINTER_INIT_ADDRESS (SRAM_END)
 
 #include <stdint.h>
-#define ISR_VECTOR_SIZE_WORDS 117  // Table 97. STM32G4 Series vector table 
+#define ISR_VECTOR_SIZE_WORDS 118  // Table 97. STM32G4 Series vector table 
 
 extern uint32_t _etext, _sdata, _edata, _sbss, _ebss;
 void main(void);
@@ -26,7 +26,7 @@ void debug_monitor_handler(void) __attribute__((weak, alias("default_handler")))
 void pendsv_handler(void) __attribute__((weak, alias("default_handler")));
 void systick_handler(void) __attribute__((weak, alias("default_handler")));
 
-// STM32G4 interrupt handlers
+// Reference Manual: STM32G4 interrupt handlers
 void wwdg_handler(void) __attribute__((weak, alias("default_handler")));
 void pvd_pvm_handler(void) __attribute__((weak, alias("default_handler")));
 void rtc_tamp_css_lse_handler(void) __attribute__((weak, alias("default_handler")));
@@ -73,7 +73,7 @@ void usb_wake_up_handler(void) __attribute__((weak, alias("default_handler")));
 void tim8_brk_tim8_terr_tim8_ierr_handler(void) __attribute__((weak, alias("default_handler")));
 void tim8_up_handler(void) __attribute__((weak, alias("default_handler")));
 void tim8_trg_com_tim8_dir_tim8_idx_handler(void) __attribute__((weak, alias("default_handler")));
-void tim1_cc_handler(void) __attribute__((weak, alias("default_handler")));
+void tim8_cc_handler(void) __attribute__((weak, alias("default_handler")));
 void adc3_handler(void) __attribute__((weak, alias("default_handler")));
 void fsmc_handler(void) __attribute__((weak, alias("default_handler")));
 void lptim1_handler(void) __attribute__((weak, alias("default_handler")));
@@ -195,7 +195,7 @@ uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector")
     (uint32_t)&tim8_brk_tim8_terr_tim8_ierr_handler,
     (uint32_t)&tim8_up_handler,
     (uint32_t)&tim8_trg_com_tim8_dir_tim8_idx_handler,
-    (uint32_t)&tim1_cc_handler,
+    (uint32_t)&tim8_cc_handler,
     (uint32_t)&adc3_handler,
     (uint32_t)&fsmc_handler,
     (uint32_t)&lptim1_handler,

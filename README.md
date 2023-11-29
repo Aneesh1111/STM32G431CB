@@ -52,12 +52,17 @@ Then go inside the `openocd` directory. Run the following commands sequentially:
 
 ## Compiling & Executing
 
-To build the executable, invoke `arm-none-eabi_gcc`:
+To build the executable in the ***STM32G431CB*** directory, invoke `arm-none-eabi_gcc`:
 ```
   $ arm-none-eabi-gcc src/main.c sec/startup.c -T linker_script.ld -o blink.elf -mcpu=cortex-m4 -mthumb -nostdlib
 ```
 
-Then, to program the binary to the target, run:
+Then, to:
+- Program the binary to the target
+- Verify that it was programmed correctly
+- Reset the target
+- Exit OpenOCD
+run:
 ```
   $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32f4x.cfg -c "program blink.elf verify reset exit"
 ```

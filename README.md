@@ -1,5 +1,5 @@
 <!-- <div align="center"> -->
-<img src="logo.jpg" width="200">
+<img src="docs/logo.jpg" width="200">
 
 <!-- </div> -->
 # STM32G431CB

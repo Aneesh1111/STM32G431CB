@@ -28,7 +28,7 @@ The blinking of the LEDs (linker script, startup, and main) were all adopted/adj
 
 ---
 
-First, run:
+First, in the **root** directory, run:
 ```
   $ git clone git://git.code.sf.net/p/openocd/code openocd
 ```
@@ -52,7 +52,7 @@ Then go inside the `openocd` directory. Run the following commands sequentially:
 
 ## Compiling & Executing
 
-To build the executable in the ***os-motor-controler*** directory, invoke `arm-none-eabi_gcc`:
+To build the executable in the ***STM32G431CB*** directory, invoke `arm-none-eabi_gcc`:
 ```
   $ arm-none-eabi-gcc src/main.c src/startup.c -T linker_script.ld -o main.elf -mcpu=cortex-m4 -mthumb -nostdlib
 ```
@@ -69,7 +69,7 @@ run:
 
 ## Compiling & Executing an Example Script
 
-For the blinky_example, the following would be run in the ***os-motor-controler*** directory:
+For the blinky_example, the following would be run in the ***STM32G431CB*** directory:
 ```
   $ arm-none-eabi-gcc samples/blinky_example/main.c src/startup.c -T linker_script.ld -o blinky_example.elf -mcpu=cortex-m4 -mthumb -nostdlib
 ```

@@ -28,7 +28,7 @@ The blinking of the LEDs (linker script, startup, and main) were all adopted/adj
 
 ---
 
-First, run:
+First, in the **root** directory, run:
 ```
   $ git clone git://git.code.sf.net/p/openocd/code openocd
 ```
@@ -54,7 +54,7 @@ Then go inside the `openocd` directory. Run the following commands sequentially:
 
 To build the executable in the ***STM32G431CB*** directory, invoke `arm-none-eabi_gcc`:
 ```
-  $ arm-none-eabi-gcc src/main.c sec/startup.c -T linker_script.ld -o blink.elf -mcpu=cortex-m4 -mthumb -nostdlib
+  $ arm-none-eabi-gcc src/main.c src/startup.c -T linker_script.ld -o main.elf -mcpu=cortex-m4 -mthumb -nostdlib
 ```
 
 Then, to:
@@ -64,5 +64,17 @@ Then, to:
 - Exit OpenOCD
 run:
 ```
-  $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32f4x.cfg -c "program blink.elf verify reset exit"
+  $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32g4x.cfg -c "program main.elf verify reset exit"
+```
+
+## Compiling & Executing an Example Script
+
+For the blinky_example, the following would be run in the ***STM32G431CB*** directory:
+```
+  $ arm-none-eabi-gcc samples/blinky_example/main.c src/startup.c -T linker_script.ld -o blinky_example.elf -mcpu=cortex-m4 -mthumb -nostdlib
+```
+
+Then run:
+```
+  $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32g4x.cfg -c "program blinky_example.elf verify reset exit"
 ```

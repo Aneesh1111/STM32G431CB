@@ -30,31 +30,31 @@ The blinking of the LEDs (linker script, startup, and main) were all adopted/adj
 
 First, in the **root** directory, run:
 ```
-  $ git clone git://git.code.sf.net/p/openocd/code openocd
+git clone git://git.code.sf.net/p/openocd/code openocd
 ```
 
 Then go inside the `openocd` directory. Run the following commands sequentially:
 > Note for `macos` you need to run: `$ brew install automake` and `$ brew install libusb` for the following to work.
 ```
-  $ ./bootstrap
+./bootstrap
 ```
 ```
-  $ ./configure --enable-stlink
+./configure --enable-stlink
 ```
 ```
-  $ make
+make
 ```
 ```
-  $ sudo make install
+sudo make install
 ```
 
 ---
 
 ## Compiling & Executing
 
-To build the executable in the ***STM32G431CB*** directory, invoke `arm-none-eabi_gcc`:
+To build the executable in the ***STM32G431CB*** directory, invoke `make`:
 ```
-  $ arm-none-eabi-gcc src/main.c src/startup.c -T linker_script.ld -o main.elf -mcpu=cortex-m4 -mthumb -nostdlib
+make
 ```
 
 Then, to:
@@ -64,17 +64,13 @@ Then, to:
 - Exit OpenOCD
 run:
 ```
-  $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32g4x.cfg -c "program main.elf verify reset exit"
+make flash
 ```
+> `make flash` also builds the executable, as well as flashing to the board 
 
 ## Compiling & Executing an Example Script
 
 For the blinky_example, the following would be run in the ***STM32G431CB*** directory:
 ```
-  $ arm-none-eabi-gcc samples/blinky_example/main.c src/startup.c -T linker_script.ld -o blinky_example.elf -mcpu=cortex-m4 -mthumb -nostdlib
-```
-
-Then run:
-```
-  $ openocd -f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32g4x.cfg -c "program blinky_example.elf verify reset exit"
+make blinky_example_flash
 ```

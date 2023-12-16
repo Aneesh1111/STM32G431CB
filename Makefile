@@ -28,8 +28,23 @@ clean:
 	rm -f *.o *.elf
 
 
+blinky_example: blinky_example.elf
+
+blinky_example.elf: blinky_example_main.o startup.o system_stm32g4xx.o
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o blinky_example.elf
+
+blinky_example_main.o: samples/blinky_example/blinky_example_main.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) samples/blinky_example/blinky_example_main.c -c
+
+
+
 PROGRAMMER=openocd
 PROGRAMMER_FLAGS=-f ~/openocd/tcl/interface/stlink.cfg -f ~/openocd/tcl/target/stm32g4x.cfg
 
 flash: blink.elf
 	$(PROGRAMMER) $(PROGRAMMER_FLAGS) -c "program blink.elf verify reset exit"
+
+
+blinky_example_flash: blinky_example
+	$(PROGRAMMER) $(PROGRAMMER_FLAGS) -c "program blinky_example.elf verify reset exit"
+

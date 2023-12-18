@@ -25,7 +25,7 @@ system_stm32g4xx.o: dependencies/CMSIS/Device/ST/STM32G4/Source/Templates/system
 
 .PHONY: clean
 clean:
-	rm -f *.o *.elf
+	rm -f *.o *.elf *.s
 
 
 blinky_example: blinky_example.elf
@@ -36,6 +36,11 @@ blinky_example.elf: blinky_example_main.o startup.o system_stm32g4xx.o
 blinky_example_main.o: samples/blinky_example/blinky_example_main.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) samples/blinky_example/blinky_example_main.c -c
 
+
+assembly: main.s
+
+main.s: src/main.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -S $^ -o main.s
 
 
 PROGRAMMER=openocd

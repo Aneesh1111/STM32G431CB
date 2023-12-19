@@ -37,10 +37,16 @@ blinky_example_main.o: samples/blinky_example/blinky_example_main.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) samples/blinky_example/blinky_example_main.c -c
 
 
-assembly: main.s
+assembly: main.s startup.s system_stm32g4xx.s
 
 main.s: src/main.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -S $^ -o main.s
+
+startup.s: src/startup.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -S $^ -o startup.s
+
+system_stm32g4xx.s: dependencies/CMSIS/Device/ST/STM32G4/Source/Templates/system_stm32g4xx.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -S $^ -o system_stm32g4xx.s
 
 
 PROGRAMMER=openocd
